@@ -47,5 +47,7 @@ dependencies {
     implementation(libs.androidx.media3.common)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.guava)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.coil.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

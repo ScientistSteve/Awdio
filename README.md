@@ -4,8 +4,8 @@ Awdio is a native Android music player built with Kotlin, Jetpack Compose, Mater
 
 ## Implemented feature plan and architecture
 
-- **Manual DI**: `AwdioApplication` owns the repository and playback controller. This is simpler than Hilt for a compact single-module sample while retaining clear dependency boundaries.
-- **Data**: `MusicRepository` exposes sample demo tracks, favorites, and playlists with `StateFlow`. The app uses remote SoundHelix MP3 sample streams so it is demoable without a backend or device media permissions beyond Internet.
+- **Manual DI**: `AwdioApplication` owns the repository and playback controller. This is simpler than Hilt for a compact single-module app while retaining clear dependency boundaries.
+- **Data**: `MusicRepository` queries the device audio library through `MediaStore`, filters user-hidden songs with a persisted DataStore blacklist, and exposes songs, favorites, and playlists with `StateFlow`.
 - **Playback**: `PlaybackController` talks to a foreground `MediaSessionService` backed by ExoPlayer so playback can continue in the background and expose media notification/lock-screen controls through Media3.
 - **UI**: Compose Material 3 screens consume a single `MainUiState` from `MainViewModel` using unidirectional data flow.
 
@@ -35,6 +35,6 @@ Install the generated debug APK from `app/build/outputs/apk/debug/`. The build i
 
 ## Known limitations
 
-- Sample tracks are streamed from SoundHelix, so playback requires network access.
-- Bass boost is represented as an app-level toggle in this sample UI; production audio effects would need device-session-specific `AudioEffect` handling.
+- Audio is loaded from the device library via MediaStore after the app receives the appropriate runtime media/storage permission.
+- Bass boost is represented as an app-level toggle in this UI; production audio effects would need device-session-specific `AudioEffect` handling.
 - Queue reordering is modeled in the ViewModel layer; a drag-and-drop UI can be added later.
