@@ -26,9 +26,11 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.10.2'
+          gradle-version: '8.13'
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+      - name: Install Android SDK API 36
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Build arm64 debug APK
         run: ./gradlew assembleDebug --stacktrace
       - name: Upload APK
